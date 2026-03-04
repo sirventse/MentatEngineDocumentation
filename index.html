@@ -3,11 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentación | Mi Proyecto</title>
+    <title>Documentación | MentatEngine</title>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Color inicial */
+            background-color: #ff00ff; 
+            /* Animación psicodélica */
+            animation: psicodelico 3s infinite linear;
+            overflow: hidden;
+        }
+
+        @keyframes psicodelico {
+            0% { background-color: #ff0000; filter: hue-rotate(0deg); }
+            25% { background-color: #00ff00; }
+            50% { background-color: #0000ff; }
+            75% { background-color: #ffff00; }
+            100% { background-color: #ff0000; filter: hue-rotate(360deg); }
+        }
+
         img {
-            width: 2000px; /* Ajusta el tamaño de tu SVG aquí */
+            width: 90vw; /* 90% del ancho de la pantalla para que no se corte */
+            max-width: 2000px;
             height: auto;
+            /* Sombra para que el logo resalte sobre los colores */
+            filter: drop-shadow(0px 0px 20px rgba(0,0,0,0.5));
         }
     </style>
 </head>
