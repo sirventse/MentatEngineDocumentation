@@ -3,42 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentación | MentatEngine</title>
+    <title>MentatEngine | Psicodelia</title>
     <style>
-        body {
+        body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            /* Color inicial */
-            background-color: #ff00ff; 
-            /* Animación psicodélica */
-            animation: psicodelico 3s infinite linear;
-            overflow: hidden;
+            /* El fondo base con los colores de tu imagen */
+            background: linear-gradient(45deg, #f39c12, #e91e63, #9b59b6, #3498db, #2ecc71);
+            background-size: 400% 400%;
+            animation: flow 10s ease infinite;
         }
 
-        @keyframes psicodelico {
-            0% { background-color: #ff0000; filter: hue-rotate(0deg); }
-            25% { background-color: #00ff00; }
-            50% { background-color: #0000ff; }
-            75% { background-color: #ffff00; }
-            100% { background-color: #ff0000; filter: hue-rotate(360deg); }
+        /* Animación que mueve los colores como lava */
+        @keyframes flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Efecto de distorsión para imitar las ondas de la imagen */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: rotate(30deg);
+            filter: blur(1px);
+            z-index: 1;
         }
 
         img {
-            width: 90vw; /* 90% del ancho de la pantalla para que no se corte */
-            max-width: 2000px;
-            height: auto;
-            /* Sombra para que el logo resalte sobre los colores */
-            filter: drop-shadow(0px 0px 20px rgba(0,0,0,0.5));
+            position: relative;
+            z-index: 2;
+            width: 80vw;
+            max-width: 1200px;
+            filter: drop-shadow(0 0 30px rgba(0,0,0,0.4));
+            /* Un ligero balanceo para el logo */
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-1deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
         }
     </style>
 </head>
 <body>
 
-    <img src="title.svg" alt="Logo de Documentación" class="main-logo">
+    <img src="title.svg" alt="Logo MentatEngine">
 
 </body>
 </html>
