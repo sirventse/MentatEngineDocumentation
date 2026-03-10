@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How To's - MentatEngine</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(35, 55, 90, 0.45), transparent 55%),
+        linear-gradient(180deg, #0b0f17 0%, #0f1724 100%);
+      color: #f5f7fb;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .hero img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .hero h1 {
+      margin: 16px 0 10px 0;
+      font-size: 2.2rem;
+    }
+
+    .hero p {
+      color: #d9e2f0;
+      max-width: 760px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 24px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+    }
+
+    .card p {
+      color: #d9e2f0;
+      line-height: 1.7;
+    }
+
+    code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, monospace;
+    }
+
+    pre {
+    background: #0a0f18;
+    color: #eaf2ff;
+    padding: 14px;
+    border-radius: 12px;
+    overflow-x: auto;
+    border: 1px solid rgba(255,255,255,0.08);
+    line-height: 1.5;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+    }
+    .note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      border-left: 4px solid rgba(255,255,255,0.25);
+      color: #d9e2f0;
+    }
+
+    .footer-actions {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 8px;
+      padding: 12px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      color: white;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .button:hover {
+      transform: scale(1.03);
+      background: rgba(255,255,255,0.18);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <img src="title.svg" alt="MentatEngine logo">
+      <h1>How To's</h1>
+      <p>
+        Basic recipes for working with MentatEngine. These examples are based on the engine examples
+        and the current ECS workflow using entities and components.
+      </p>
+    </div>
+
+    <div class="grid">
+
+      <section class="card">
+        <h2>1. Create a Core</h2>
+        <p>Start by creating the engine core, initializing the renderer and selecting the render type.</p>
+        <pre><code>std::optional&lt;ME::Core&gt; maybe_core = ME::Core::create(
+    1280, 720, "My Scene", ME::APIType::OpenGL
+);
+
+if (!maybe_core) return -1;
+
+ME::Core core = std::move(maybe_core.value());
+core.InitRenderer(true);
+core.GetGraphicAPI()-&gt;StartRenderers();
+core.GetGraphicAPI()-&gt;SetRenderType(ME::RenderType::Phong);</code></pre>
+        <div class="note">Use this as the usual entry point before creating entities or rendering meshes.</div>
+      </section>
+
+      <section class="card">
+        <h2>2. Create an Entity</h2>
+        <p>An entity is the base object in the ECS. Creating one gives it an ID automatically.</p>
+        <pre><code>ME::Entity entity;
+unsigned long id = entity.GetID();</code></pre>
+        <div class="note">By default, entities get a TagComponent automatically with a name like "Entity X".</div>
+      </section>
+
+      <section class="card">
+        <h2>3. Add a TransformComponent</h2>
+        <p>Transforms store position, rotation and scale.</p>
+        <pre><code>entity.AddComponent&lt;ME::TransformComponent&gt;();
+
+ME::TransformComponent* tc = entity.GetComponent&lt;ME::TransformComponent&gt;();
+tc-&gt;SetPosition({0.0f, 1.0f, 0.0f});
+tc-&gt;SetRotation({0.0f, 0.0f, 0.0f});
+tc-&gt;SetScale({1.0f, 1.0f, 1.0f});</code></pre>
+        <div class="note">This is the component you will usually combine with render, light and hierarchy logic.</div>
+      </section>
+
+      <section class="card">
+        <h2>4. Add a RenderizableComponent</h2>
+        <p>To render geometry, add a RenderizableComponent with vertices, indices, color and optionally a mesh path.</p>
+        <pre><code>ME::LoadedDrawable mesh =
+    ME::MeshLoader::LoadObjPositionsFlat("../../deps/resources/horse.obj");
+
+ME::Entity model;
+model.AddComponent&lt;ME::RenderizableComponent&gt;(
+    mesh.vertices.data(),
+    mesh.vertices.size(),
+    mesh.indexes.data(),
+    mesh.indexes.size(),
+    Vec3{1.0f, 0.0f, 0.0f},
+    "../../deps/resources/horse.obj"
+);
+
+model.AddComponent&lt;ME::TransformComponent&gt;();</code></pre>
+        <div class="note">This is the clearest render workflow in the examples I reviewed.</div>
+      </section>
+
+      <section class="card">
+        <h2>5. Move an Entity with Input</h2>
+        <p>Bind actions to keys, read them every frame, and update the TransformComponent.</p>
+        <pre><code>ME::Input input(core.window());
+input.BindEditorKey(ME::Input::MoveUp, ME::Input::W);
+input.BindEditorKey(ME::Input::MoveDown, ME::Input::S);
+input.BindEditorKey(ME::Input::MoveLeft, ME::Input::A);
+input.BindEditorKey(ME::Input::MoveRight, ME::Input::D);
+
+ME::TransformComponent* tc =
+    ME::ECS::GetComponent&lt;ME::TransformComponent&gt;(entity.GetID());
+
+Vec3 pos = tc-&gt;Position();
+if (input.checkActionPressed(ME::Input::MoveUp))    pos.y_ += core.DeltaTime();
+if (input.checkActionPressed(ME::Input::MoveDown))  pos.y_ -= core.DeltaTime();
+if (input.checkActionPressed(ME::Input::MoveRight)) pos.x_ += core.DeltaTime();
+if (input.checkActionPressed(ME::Input::MoveLeft))  pos.x_ -= core.DeltaTime();
+
+tc-&gt;SetPosition(pos);</code></pre>
+        <div class="note">This pattern is used repeatedly in the examples.</div>
+      </section>
+
+      <section class="card">
+        <h2>6. Add a Fly Camera</h2>
+        <p>The CameraComponent supports fly movement through <code>UpdateFly</code>.</p>
+        <pre><code>ME::Entity cameraEntity;
+cameraEntity.AddComponent&lt;ME::CameraComponent&gt;();
+
+ME::Input input(core.window());
+input.BindEditorKey(ME::Input::Action::FlyEnable,   ME::Input::InputKey::MB_Right);
+input.BindEditorKey(ME::Input::Action::FlyForward,  ME::Input::InputKey::W);
+input.BindEditorKey(ME::Input::Action::FlyBackward, ME::Input::InputKey::S);
+input.BindEditorKey(ME::Input::Action::FlyLeft,     ME::Input::InputKey::A);
+input.BindEditorKey(ME::Input::Action::FlyRight,    ME::Input::InputKey::D);
+input.BindEditorKey(ME::Input::Action::FlyDown,     ME::Input::InputKey::E);
+input.BindEditorKey(ME::Input::Action::FlyUp,       ME::Input::InputKey::Q);
+
+auto* cam = cameraEntity.GetComponent&lt;ME::CameraComponent&gt;();
+cam-&gt;UpdateFly(input, core.window(), core.DeltaTime());</code></pre>
+        <div class="note">In the shadow mapping example, the fly camera is updated every frame.</div>
+      </section>
+
+      <section class="card">
+        <h2>7. Add a LightComponent</h2>
+        <p>Lights can be point, directional or spot, and can optionally cast shadows.</p>
+        <pre><code>ME::Entity lightEntity;
+auto& light = lightEntity.AddComponent&lt;ME::LightComponent&gt;();
+
+light.SetType(ME::LightType::DIRECTIONAL);
+light.SetEnabled(true);
+light.SetDiffColor({1.0f, 1.0f, 1.0f});
+light.SetSpecColor({1.0f, 1.0f, 1.0f});
+light.SetDir({-0.2f, -1.0f, -0.3f});
+light.SetCastsShadows(true);</code></pre>
+        <div class="note">For point lights and spotlights, you can also configure attenuation and cutoff values.</div>
+      </section>
+
+      <section class="card">
+        <h2>8. Attach a Lua Script</h2>
+        <p>Scripts are handled with ScriptComponent and can expose engine types such as Entity, Transform, Input and ECS.</p>
+        <pre><code>ME::Entity scripted;
+auto& script = scripted.AddComponent&lt;ME::ScriptComponent&gt;(scripted.GetID());
+
+script.setCodeByPath("../../deps/resources/scripts/myScript.lua");
+script.EnableCode(true);</code></pre>
+        <pre><code>-- myScript.lua
+function OnStart(dt, selfId)
+    print("Script started", selfId)
+end
+
+function OnFrame(dt, selfId)
+    local transform = ECS.GetTransformComp(selfId)
+    if transform ~= nil then
+        local pos = transform:Position()
+        pos.y_ = pos.y_ + dt
+        transform:SetPosition(pos)
+    end
+end</code></pre>
+        <div class="note">This section may need a small revision with you to document the exact recommended script lifecycle.</div>
+      </section>
+
+      <section class="card">
+        <h2>9. Set Parent-Child Relationships</h2>
+        <p>Hierarchy is stored through the TransformComponent parent ID.</p>
+        <pre><code>ME::Entity parent;
+ME::Entity child;
+
+parent.AddComponent&lt;ME::TransformComponent&gt;();
+child.AddComponent&lt;ME::TransformComponent&gt;();
+
+parent.SetParent(child);</code></pre>
+        <div class="note">The current implementation suggests the child entity stores the parent ID inside its TransformComponent.</div>
+      </section>
+
+      <section class="card">
+        <h2>10. Remove an Entity</h2>
+        <p>Use the ECS directly to remove an entity and all its associated components.</p>
+        <pre><code>ME::ECS::RemoveEntity(entity.GetID());</code></pre>
+        <div class="note">This is used directly in the ECS example when swapping visible entities.</div>
+      </section>
+
+      <section class="card">
+        <h2>11. Find an Entity by Tag</h2>
+        <p>Entities get a TagComponent automatically and the ECS exposes lookup by tag.</p>
+        <pre><code>unsigned long id = ME::ECS::GetEntityByTag("Player");</code></pre>
+        <div class="note">You can use tags to locate important scene entities without storing IDs everywhere.</div>
+      </section>
+
+    </div>
+
+    <div class="footer-actions">
+      <a class="button" href="index.html">Back to Home</a>
+      <a class="button" href="getting-started.html">Getting Started</a>
+      <a class="button" href="docs/api/index.html">Documentation</a>
+    </div>
+  </div>
+</body>
+</html>
