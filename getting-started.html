@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting Started - MentatEngine</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(35, 55, 90, 0.45), transparent 55%),
+        linear-gradient(180deg, #0b0f17 0%, #0f1724 100%);
+      color: #f5f7fb;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 32px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      color: #ffffff;
+    }
+
+    p {
+      line-height: 1.7;
+      color: #d9e2f0;
+    }
+
+    code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, monospace;
+    }
+
+    pre {
+      background: #0a0f18;
+      color: #eaf2ff;
+      padding: 16px;
+      border-radius: 12px;
+      overflow-x: auto;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    a.button {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 12px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      color: white;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    a.button:hover {
+      transform: scale(1.03);
+      background: rgba(255,255,255,0.18);
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .hero img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .section {
+      margin-top: 28px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <img src="title.svg" alt="MentatEngine logo">
+      <h1>Getting Started</h1>
+      <p>A high-performance graphics engine demonstrator.</p>
+    </div>
+
+    <div class="section">
+      <h2>Setup & Compilation</h2>
+      <p>Follow these steps to configure the environment and build the engine.</p>
+    </div>
+
+    <div class="section">
+      <h3>1. Install Dependencies</h3>
+      <p>The project uses <strong>Conan</strong> for dependency management. Install it with:</p>
+      <pre><code>pip install conan</code></pre>
+    </div>
+
+    <div class="section">
+      <h3>2. Generate the Project</h3>
+      <p>To create the build files and the Visual Studio solution, run:</p>
+      <pre><code>/tools/genproj.bat</code></pre>
+    </div>
+
+    <div class="section">
+      <h3>3. Build Location</h3>
+      <p>After running the script, the compiled solution will be available at:</p>
+      <pre><code>build/MentatEngine.sln</code></pre>
+    </div>
+
+    <a class="button" href="index.html">Back to Home</a>
+  </div>
+</body>
+</html>
