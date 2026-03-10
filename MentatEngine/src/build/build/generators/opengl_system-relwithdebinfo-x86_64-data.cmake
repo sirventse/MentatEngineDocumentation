@@ -1,0 +1,39 @@
+########### AGGREGATED COMPONENTS AND DEPENDENCIES FOR THE MULTI CONFIG #####################
+#############################################################################################
+
+set(opengl_COMPONENT_NAMES "")
+set(opengl_FIND_DEPENDENCY_NAMES "")
+
+########### VARIABLES #######################################################################
+#############################################################################################
+set(opengl_PACKAGE_FOLDER_RELWITHDEBINFO "C:/Users/sergi/.conan/data/opengl/system/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9")
+set(opengl_BUILD_MODULES_PATHS_RELWITHDEBINFO )
+
+
+set(opengl_INCLUDE_DIRS_RELWITHDEBINFO )
+set(opengl_RES_DIRS_RELWITHDEBINFO )
+set(opengl_DEFINITIONS_RELWITHDEBINFO )
+set(opengl_SHARED_LINK_FLAGS_RELWITHDEBINFO )
+set(opengl_EXE_LINK_FLAGS_RELWITHDEBINFO )
+set(opengl_OBJECTS_RELWITHDEBINFO )
+set(opengl_COMPILE_DEFINITIONS_RELWITHDEBINFO )
+set(opengl_COMPILE_OPTIONS_C_RELWITHDEBINFO )
+set(opengl_COMPILE_OPTIONS_CXX_RELWITHDEBINFO )
+set(opengl_LIB_DIRS_RELWITHDEBINFO )
+set(opengl_LIBS_RELWITHDEBINFO )
+set(opengl_SYSTEM_LIBS_RELWITHDEBINFO opengl32)
+set(opengl_FRAMEWORK_DIRS_RELWITHDEBINFO )
+set(opengl_FRAMEWORKS_RELWITHDEBINFO )
+set(opengl_BUILD_DIRS_RELWITHDEBINFO "${opengl_PACKAGE_FOLDER_RELWITHDEBINFO}/")
+
+# COMPOUND VARIABLES
+set(opengl_COMPILE_OPTIONS_RELWITHDEBINFO
+    "$<$<COMPILE_LANGUAGE:CXX>:${opengl_COMPILE_OPTIONS_CXX_RELWITHDEBINFO}>"
+    "$<$<COMPILE_LANGUAGE:C>:${opengl_COMPILE_OPTIONS_C_RELWITHDEBINFO}>")
+set(opengl_LINKER_FLAGS_RELWITHDEBINFO
+    "$<$<STREQUAL:$<TARGET_PROPERTY:TYPE>,SHARED_LIBRARY>:${opengl_SHARED_LINK_FLAGS_RELWITHDEBINFO}>"
+    "$<$<STREQUAL:$<TARGET_PROPERTY:TYPE>,MODULE_LIBRARY>:${opengl_SHARED_LINK_FLAGS_RELWITHDEBINFO}>"
+    "$<$<STREQUAL:$<TARGET_PROPERTY:TYPE>,EXECUTABLE>:${opengl_EXE_LINK_FLAGS_RELWITHDEBINFO}>")
+
+
+set(opengl_COMPONENTS_RELWITHDEBINFO )

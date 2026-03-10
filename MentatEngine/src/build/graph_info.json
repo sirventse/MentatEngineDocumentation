@@ -1,0 +1,30 @@
+{
+ "options": [
+  [
+   "glew:shared",
+   "False"
+  ],
+  [
+   "glfw:shared",
+   "False"
+  ],
+  [
+   "glfw:vulkan_static",
+   "False"
+  ],
+  [
+   "tinyobjloader:double",
+   "False"
+  ],
+  [
+   "tinyobjloader:shared",
+   "False"
+  ]
+ ],
+ "root": {
+  "name": null,
+  "version": null,
+  "user": null,
+  "channel": null
+ }
+}

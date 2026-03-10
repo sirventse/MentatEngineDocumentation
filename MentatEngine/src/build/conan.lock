@@ -1,0 +1,65 @@
+{
+ "graph_lock": {
+  "nodes": {
+   "0": {
+    "options": "glew:shared=False\nglfw:shared=False\nglfw:vulkan_static=False\ntinyobjloader:double=False\ntinyobjloader:shared=False",
+    "requires": [
+     "1",
+     "3",
+     "5"
+    ],
+    "path": "conanfile.txt",
+    "context": "host"
+   },
+   "1": {
+    "ref": "glfw/3.3.8",
+    "options": "shared=False\nvulkan_static=False",
+    "package_id": "d2bbd56c1f653d6cd1a2bcf499dd79bd0a930b61",
+    "prev": "0",
+    "requires": [
+     "2"
+    ],
+    "context": "host"
+   },
+   "2": {
+    "ref": "opengl/system",
+    "options": "",
+    "package_id": "5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
+    "prev": "0",
+    "context": "host"
+   },
+   "3": {
+    "ref": "glew/2.2.0",
+    "options": "shared=False",
+    "package_id": "876ec6183b0dda30dcb41826d66ad276a23d1ade",
+    "prev": "0",
+    "requires": [
+     "2",
+     "4"
+    ],
+    "context": "host"
+   },
+   "4": {
+    "ref": "glu/system",
+    "options": "",
+    "package_id": "5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
+    "prev": "0",
+    "requires": [
+     "2"
+    ],
+    "context": "host"
+   },
+   "5": {
+    "ref": "tinyobjloader/2.0.0-rc10",
+    "options": "double=False\nshared=False",
+    "package_id": "5a61a86bb3e07ce4262c80e1510f9c05e9b6d48b",
+    "prev": "0",
+    "modified": true,
+    "context": "host"
+   }
+  },
+  "revisions_enabled": false
+ },
+ "version": "0.4",
+ "profile_host": "[settings]\narch=x86_64\narch_build=x86_64\nbuild_type=Release\ncompiler=Visual Studio\ncompiler.runtime=MD\ncompiler.version=17\nos=Windows\nos_build=Windows\n[options]\n[build_requires]\n[env]\n"
+}

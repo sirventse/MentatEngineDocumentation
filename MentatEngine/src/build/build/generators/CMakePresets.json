@@ -1,0 +1,58 @@
+{
+    "version": 3,
+    "vendor": {
+        "conan": {}
+    },
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 15,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "'default' config",
+            "description": "'default' configure using 'Visual Studio 17 2022' generator",
+            "generator": "Visual Studio 17 2022",
+            "cacheVariables": {
+                "CMAKE_POLICY_DEFAULT_CMP0091": "NEW"
+            },
+            "toolchainFile": "C:\\Users\\sergi\\OneDrive\\Escritorio\\ESAT\\Tercero\\MOT\\3PMG2526_barbasa_sirventse\\src\\build\\build\\generators\\conan_toolchain.cmake",
+            "binaryDir": "C:\\Users\\sergi\\OneDrive\\Escritorio\\ESAT\\Tercero\\MOT\\3PMG2526_barbasa_sirventse\\src\\build\\build"
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "release",
+            "configurePreset": "default",
+            "configuration": "Release"
+        },
+        {
+            "name": "relwithdebinfo",
+            "configurePreset": "default",
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "debug",
+            "configurePreset": "default",
+            "configuration": "Debug"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "release",
+            "configurePreset": "default",
+            "configuration": "Release"
+        },
+        {
+            "name": "relwithdebinfo",
+            "configurePreset": "default",
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "debug",
+            "configurePreset": "default",
+            "configuration": "Debug"
+        }
+    ]
+}

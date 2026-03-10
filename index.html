@@ -52,6 +52,27 @@
             animation: float 4s ease-in-out infinite;
         }
 
+        .docs-button {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            margin-top: 24px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 0 20px rgba(0,0,0,0.25);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .docs-button:hover {
+            transform: scale(1.05);
+            background: rgba(0,0,0,0.5);
+        }
+
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(-1deg); }
             50% { transform: translateY(-20px) rotate(1deg); }
@@ -59,8 +80,10 @@
     </style>
 </head>
 <body>
-
-    <img src="title.svg" alt="Logo MentatEngine">
-
+    <div style="position: relative; z-index: 2; text-align: center;">
+        <img src="title.svg" alt="Logo MentatEngine">
+        <br>
+        <a class="docs-button" href="docs/api/index.html">Full documentation</a>
+    </div>
 </body>
 </html>
