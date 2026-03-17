@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Showcase - MentatEngine</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(35, 55, 90, 0.45), transparent 55%),
+        linear-gradient(180deg, #0b0f17 0%, #0f1724 100%);
+      color: #f5f7fb;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .hero img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .hero h1 {
+      margin: 16px 0 10px 0;
+      font-size: 2.2rem;
+    }
+
+    .hero p {
+      color: #d9e2f0;
+      max-width: 780px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 24px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    }
+
+    h2, h3 {
+      margin-top: 0;
+    }
+
+    p, li {
+      color: #d9e2f0;
+      line-height: 1.7;
+    }
+
+    ul {
+      margin-top: 10px;
+    }
+
+    code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: Consolas, monospace;
+    }
+
+    .note {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.05);
+      border-left: 4px solid rgba(255,255,255,0.25);
+      color: #d9e2f0;
+    }
+
+    .buttons {
+      text-align: center;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 8px;
+      padding: 12px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      color: white;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+      transition: transform 0.2s ease, background 0.2s ease;
+      font-family: Arial, sans-serif;
+    }
+
+    .button:hover {
+      transform: scale(1.03);
+      background: rgba(255,255,255,0.18);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <img src="title.svg" alt="MentatEngine logo">
+      <h1>Showcase</h1>
+      <p>
+        MentatEngine is not only a rendering sandbox. It also includes playable and editable scenes
+        that demonstrate how the ECS, rendering pipeline, editor workflow and scripting system fit together.
+      </p>
+    </div>
+
+    <section class="card">
+      <h2>PongGame Scene</h2>
+      <p>
+        One of the most representative showcase scenes in the project is <code>PongGame</code>.
+        It works well as a demonstration because it combines several important engine systems in one place.
+      </p>
+      <ul>
+        <li>ECS entities and components</li>
+        <li>scene loading through the editor flow</li>
+        <li>transform-based gameplay objects</li>
+        <li>runtime testing with the Player panel</li>
+        <li>Lua or script-driven logic attached to entities</li>
+      </ul>
+      <div class="note">
+        PongGame is a strong example to highlight on the website because it shows that the engine can be used
+        not only to render objects, but also to prototype gameplay scenes and test logic inside the editor.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>What the Game Demonstrates</h2>
+      <p>
+        Even as a small game, Pong is a very good engine showcase because it tends to involve:
+      </p>
+      <ul>
+        <li>moving entities such as paddles and ball</li>
+        <li>component-based scene structure</li>
+        <li>collision or gameplay response logic</li>
+        <li>runtime state changes</li>
+        <li>script-controlled behavior</li>
+      </ul>
+      <p>
+        In a documentation website, this kind of scene is valuable because it turns abstract systems
+        like <code>Entity</code>, <code>TransformComponent</code> or <code>ScriptComponent</code>
+        into something visible and easy to explain.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Where It Fits in the Engine</h2>
+      <p>
+        The showcase scene connects naturally with the rest of the engine website:
+      </p>
+      <ul>
+        <li><strong>Getting Started</strong> explains how to build and launch the engine</li>
+        <li><strong>How To's</strong> explains the ECS workflows used to create entities and components</li>
+        <li><strong>Editor Panels</strong> explains how to load, inspect and test the scene from the editor</li>
+        <li><strong>Documentation</strong> gives the API-level view of the classes involved</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Suggested Workflow to Try the Game</h2>
+      <ul>
+        <li>Open the engine editor</li>
+        <li>Go to the title scene or load flow</li>
+        <li>Load <code>PongGame</code></li>
+        <li>Inspect the entities in the hierarchy</li>
+        <li>Check the scripts attached to gameplay entities</li>
+        <li>Press <strong>Play</strong> in the Player panel</li>
+        <li>Observe runtime behavior, then use <strong>Stop</strong> to restore the scene state</li>
+      </ul>
+      <div class="note">
+        This scene is especially useful for showing the difference between authoring mode and play mode inside the editor.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Why It Matters for the Website</h2>
+      <p>
+        The presence of a small playable scene makes the site feel more like the documentation of a real engine
+        and less like a static API dump. It gives visitors a concrete example of what MentatEngine can already do.
+      </p>
+      <p>
+        A good next step would be to add screenshots or a short GIF of the PongGame scene running in the editor.
+      </p>
+    </section>
+
+    <div class="buttons">
+      <a class="button" href="index.html">Back to Home</a>
+      <a class="button" href="getting-started.html">Getting Started</a>
+      <a class="button" href="how-tos.html">How To's</a>
+      <a class="button" href="editor-panels.html">Editor Panels</a>
+      <a class="button" href="docs/api/index.html">Documentation</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -40,7 +40,7 @@
 
     .hero p {
       color: #d9e2f0;
-      max-width: 800px;
+      max-width: 820px;
       margin: 0 auto;
       line-height: 1.7;
     }
@@ -62,9 +62,9 @@
     }
 
     .section h3 {
-      margin-top: 22px;
+      margin-top: 18px;
       margin-bottom: 8px;
-      font-size: 1.05rem;
+      font-size: 1.08rem;
     }
 
     p, li {
@@ -105,16 +105,12 @@
       color: #d9e2f0;
     }
 
-    .panel-card {
-      margin-top: 16px;
+    .panel {
+      margin-top: 14px;
       padding: 16px;
       border-radius: 14px;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .panel-card h3 {
-      margin-top: 0;
     }
 
     .buttons {
@@ -133,6 +129,7 @@
       background: rgba(255,255,255,0.12);
       border: 1px solid rgba(255,255,255,0.14);
       transition: transform 0.2s ease, background 0.2s ease;
+      font-family: Arial, sans-serif;
     }
 
     .button:hover {
@@ -147,266 +144,272 @@
       <img src="title.svg" alt="MentatEngine logo">
       <h1>Editor Panels</h1>
       <p>
-        A practical overview of the editor UI based on <code>ImGuiManager.cpp</code>.
-        This page explains what each panel is for and shows a basic workflow for editing
-        a scene using the ECS, Phong rendering and Shadow Map rendering.
+        This page explains the current editor workflow based on the latest ImGui manager implementation.
+        MentatEngine is centered around ECS editing, scene authoring, runtime testing and asset assignment
+        through the editor UI.
       </p>
     </div>
 
     <section class="section">
-      <h2>Rendering Modes</h2>
-      <p>
-        The editor and examples work around two main render modes:
-      </p>
+      <h2>Render Workflow</h2>
+      <p>The engine currently revolves around two main rendering paths:</p>
       <ul>
-        <li><strong>Phong</strong>: the standard lit rendering mode for general scene editing and material/light iteration.</li>
-        <li><strong>Shadow Map</strong>: used when lights cast shadows and you want to validate lighting depth and shadow behavior.</li>
+        <li><strong>Phong</strong>: the default lit workflow for scene building and material/light iteration.</li>
+        <li><strong>Shadow Map</strong>: the path used to validate shadow-casting light setups.</li>
       </ul>
       <div class="note">
-        Recommended workflow: build and position the scene in Phong first, then switch to Shadow Map to tune shadow-casting lights and verify the final look.
+        Recommended flow: build and tune the scene in Phong first, then validate light direction, shadow range and overall readability with Shadow Map.
       </div>
     </section>
 
     <section class="section">
       <h2>Main Menu Bar</h2>
 
-      <div class="panel-card">
-        <h3>File</h3>
+      <div class="panel">
+        <h3>Scene</h3>
+        <p>Scene-level actions. The current implementation includes:</p>
+        <ul>
+          <li><code>Save Scene</code></li>
+          <li><code>Exit to Menu</code></li>
+        </ul>
         <p>
-          This menu is the starting point for scene-level actions. In the current code it contains options like
-          <code>Nuevo</code> and <code>Abrir</code>.
+          Use this menu when you want to persist the current editor state or return to the title scene flow.
         </p>
       </div>
 
-      <div class="panel-card">
+      <div class="panel">
         <h3>Windows</h3>
-        <p>
-          This is the central menu to open or close editor panels. From here you can toggle:
-        </p>
+        <p>This menu toggles the main editor panels:</p>
         <ul>
           <li>Performance</li>
           <li>Details</li>
           <li>Outliner</li>
           <li>Fly cam config</li>
-          <li>Spawn entities</li>
           <li>Explorer</li>
           <li>Editor Input Bindings</li>
           <li>Gizmo Controls</li>
         </ul>
-        <p>
-          It also includes <code>Save Scene</code>, which serializes the current scene through the XML manager.
-        </p>
+      </div>
+
+      <div class="panel">
+        <h3>Entity</h3>
+        <p>This menu is for quick entity creation at the current camera position.</p>
+        <p>You can spawn:</p>
+        <ul>
+          <li>Cube</li>
+          <li>Sphere</li>
+          <li>Pyramid</li>
+          <li>Horse</li>
+          <li>Square</li>
+          <li>Triangle</li>
+          <li>Ambient light</li>
+          <li>Directional light</li>
+          <li>Spot light</li>
+          <li>Point light</li>
+        </ul>
       </div>
     </section>
 
     <section class="section">
-      <h2>Panel-by-Panel Guide</h2>
+      <h2>Panels</h2>
 
-      <div class="panel-card">
-        <h3>1. Entity Hierarchy</h3>
+      <div class="panel">
+        <h3>Title Scene</h3>
         <p>
-          This is your outliner. It shows scene entities using their transform hierarchy, so it is the main place to inspect parent-child relationships.
-        </p>
-        <p>
-          You use it to:
+          This is the scene-entry screen. It provides two main paths:
         </p>
         <ul>
-          <li>select an entity</li>
-          <li>inspect the scene tree</li>
-          <li>drag entities onto other entities to re-parent them</li>
-          <li>drop entities into the empty root area to make them root objects again</li>
+          <li><strong>NEW SCENE</strong>: starts from the default scene template</li>
+          <li><strong>LOAD SCENE</strong>: opens an existing scene from <code>deps/resources/scenes</code></li>
+        </ul>
+        <p>
+          This makes the editor feel like a full scene launcher rather than just a raw debug panel.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h3>Entity Hierarchy</h3>
+        <p>
+          This is the outliner of the scene. It shows entities as a hierarchy and supports parent-child organization.
+        </p>
+        <p>You use it to:</p>
+        <ul>
+          <li>select entities</li>
+          <li>rename visible scene structure mentally through tags</li>
+          <li>drag entities onto others to create parent-child relationships</li>
+          <li>drop entities into the root area to unparent them</li>
+          <li>toggle render visibility with the eye icon</li>
         </ul>
       </div>
 
-      <div class="panel-card">
-        <h3>2. Details</h3>
+      <div class="panel">
+        <h3>Details</h3>
         <p>
-          This is the inspector for the currently selected entity. It is the most important editing panel in the whole editor.
+          This is the main inspector for the selected entity.
         </p>
-        <p>Depending on the selected entity, it lets you edit:</p>
+        <p>It can expose and edit these sections:</p>
         <ul>
-          <li><strong>Transform</strong>: position, rotation and scale</li>
-          <li><strong>Render</strong>: visibility, color, texture, mesh path, drag & drop mesh replacement</li>
-          <li><strong>Light</strong>: light type, colors, direction, attenuation, spot cone, shadows</li>
-          <li><strong>Camera</strong>: camera properties</li>
-          <li><strong>Script</strong>: script path and scripting state</li>
+          <li><strong>Transform</strong></li>
+          <li><strong>Render</strong></li>
+          <li><strong>Light</strong></li>
+          <li><strong>Camera</strong></li>
+          <li><strong>Script</strong></li>
+        </ul>
+        <p>It also lets you:</p>
+        <ul>
+          <li>delete the selected entity</li>
+          <li>remove specific components</li>
+          <li>add new components from the Add Component flow</li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <h3>Render section inside Details</h3>
+        <p>
+          This section is especially important for mesh-driven entities.
+        </p>
+        <p>It supports:</p>
+        <ul>
+          <li>visibility toggling</li>
+          <li>color activation</li>
+          <li>texture drop targets</li>
+          <li>mesh drop targets</li>
+        </ul>
+        <p>
+          This means the Explorer and Details panels work together directly for asset assignment.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h3>Light section inside Details</h3>
+        <p>
+          This is where you configure all light behavior.
+        </p>
+        <p>It includes controls for:</p>
+        <ul>
+          <li>enabled state</li>
+          <li>shadow casting</li>
+          <li>direction normalization</li>
+          <li>quick directional presets like point down / point forward</li>
+          <li>attenuation presets</li>
+          <li>spotlight cone presets</li>
         </ul>
         <div class="note">
-          In practice, the workflow is: select an entity in Hierarchy, then do all entity-level editing in Details.
+          This is the section most directly tied to the Phong vs Shadow Map workflow.
         </div>
       </div>
 
-      <div class="panel-card">
-        <h3>3. Spawn</h3>
+      <div class="panel">
+        <h3>Script section inside Details</h3>
         <p>
-          This panel is used to create new scene objects quickly from the editor.
+          This section is where script-driven behavior is assigned to entities.
         </p>
-        <p>You use it to spawn:</p>
-        <ul>
-          <li>basic shapes</li>
-          <li>lights</li>
-        </ul>
         <p>
-          Spawned entities are positioned using the current camera position, so it is useful for fast scene blocking.
+          It includes a script drop target, so it fits naturally with the engine scripting workflow in
+          <code>deps/resources/scripts</code>.
         </p>
       </div>
 
-      <div class="panel-card">
-        <h3>4. Explorer</h3>
+      <div class="panel">
+        <h3>Player</h3>
         <p>
-          This is the file explorer panel. It recursively displays files and folders and allows drag & drop of resources into the editor.
-        </p>
-        <p>
-          In the current implementation it is especially useful for:
+          This panel controls runtime testing inside the editor.
         </p>
         <ul>
-          <li>dragging <code>.obj</code> meshes into the Render section</li>
-          <li>dragging <code>.png</code> textures into render slots</li>
-        </ul>
-      </div>
-
-      <div class="panel-card">
-        <h3>5. Player</h3>
-        <p>
-          This panel controls runtime state inside the editor.
-        </p>
-        <ul>
-          <li><strong>Play</strong>: starts runtime mode and serializes the current scene first</li>
-          <li><strong>Pause</strong>: pauses and unpauses play mode</li>
-          <li><strong>Stop</strong>: restores the serialized editor scene</li>
+          <li><strong>Play</strong>: serializes the current scene, starts play mode and switches editor styling</li>
+          <li><strong>Pause</strong>: toggles runtime pause</li>
+          <li><strong>Stop</strong>: restores the serialized scene state</li>
         </ul>
         <p>
-          This is very useful for testing scripts or runtime logic without permanently modifying the edited scene.
+          This is especially useful for testing gameplay scenes like Pong without permanently modifying the authoring state.
         </p>
       </div>
 
-      <div class="panel-card">
-        <h3>6. Performance</h3>
+      <div class="panel">
+        <h3>Performance</h3>
         <p>
-          This panel displays FPS, frame time and a small historical graph.
+          Shows FPS, frame timing and a historical FPS plot.
         </p>
         <p>
-          Use it while testing Phong or Shadow Map scenes to check whether extra lights, shadows or heavy meshes are hurting performance.
-        </p>
-      </div>
-
-      <div class="panel-card">
-        <h3>7. Fly Cam Configuration</h3>
-        <p>
-          This panel is used to tune the fly camera behavior inside the editor.
-        </p>
-        <p>
-          It is especially useful when navigating large scenes, checking hierarchy placement or placing lights for shadow mapping.
+          Use it when comparing a simple Phong scene against a more expensive shadowed scene.
         </p>
       </div>
 
-      <div class="panel-card">
-        <h3>8. Editor Input Bindings</h3>
+      <div class="panel">
+        <h3>Fly cam configuration</h3>
         <p>
-          This panel shows the editor key bindings currently registered in the input system.
+          Used to tune editor navigation. It includes reset controls and camera activation.
         </p>
         <p>
-          It helps you verify what actions are mapped to what keys, especially for editor movement and gizmo controls.
-        </p>
-      </div>
-
-      <div class="panel-card">
-        <h3>9. Gizmo Mode</h3>
-        <p>
-          This panel controls transform gizmo behavior.
-        </p>
-        <ul>
-          <li>choose transform space: <strong>World</strong> or <strong>Local</strong></li>
-          <li>adjust translate sensitivity</li>
-          <li>adjust rotate sensitivity</li>
-          <li>adjust scale sensitivity</li>
-        </ul>
-        <p>
-          This panel works together with the selected entity and the transform gizmo overlay.
+          It is especially useful for large scenes or when inspecting lights and gameplay spaces.
         </p>
       </div>
 
-      <div class="panel-card">
-        <h3>10. Title Scene</h3>
+      <div class="panel">
+        <h3>Editor Input Bindings</h3>
         <p>
-          This is the startup screen for creating or loading scenes.
+          Displays editor-side input bindings so you can verify navigation and tool controls.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h3>Gizmo mode</h3>
+        <p>
+          Controls transform gizmo behavior and editing sensitivities.
         </p>
         <p>
-          It acts like the editor entry screen, with options such as:
+          This is the panel to use when fine-tuning transform editing speed while placing entities.
         </p>
-        <ul>
-          <li><strong>NEW SCENE</strong></li>
-          <li><strong>LOAD SCENE</strong></li>
-        </ul>
+      </div>
+
+      <div class="panel">
+        <h3>Explorer</h3>
+        <p>
+          Recursively browses assets and files. It is designed to work with drag & drop into other panels.
+        </p>
+        <p>
+          In practice, this is the bridge between your resources and entity setup.
+        </p>
       </div>
     </section>
 
     <section class="section">
-      <h2>Simulated Workflow: Creating a Basic Lit Scene</h2>
-      <p>
-        This is a realistic editor workflow based on the current panel design.
-      </p>
-
-      <pre><code>1. Open the editor and enter a new scene.
-2. Open Windows > Outliner, Details, Spawn, Explorer, Performance and Player.
-3. In Spawn, create a basic shape to use as the first object.
-4. Select the entity in Entity Hierarchy.
-5. In Details > Transform, move and scale the object.
-6. In Details > Render, assign a mesh or replace it by dragging an .obj from Explorer.
-7. In Spawn, create a Directional Light.
-8. Select the light in Hierarchy.
-9. In Details > Light:
-   - set the type to Directional
-   - enable it
-   - tune direction
-   - enable Casts Shadows if you want Shadow Map rendering
-10. Use Fly Cam Configuration and editor input to navigate the scene.
-11. Check Performance while adding more objects or lights.
-12. Press Play to test runtime behavior.
-13. Press Stop to restore the original editor state.
-14. Use Save Scene when the layout is ready.</code></pre>
+      <h2>Practical Workflow: Authoring a Scene</h2>
+      <pre><code>1. Open the Title Scene.
+2. Create a new scene or load an existing one.
+3. Open Entity Hierarchy, Details, Explorer, Performance and Player.
+4. Spawn a mesh entity from the Entity menu.
+5. Select it in Entity Hierarchy.
+6. Edit position, rotation and scale in Details > Transform.
+7. Assign or replace mesh/texture using Explorer + drag & drop.
+8. Add a light from the Entity menu.
+9. Tune the light in Details > Light.
+10. Use Fly Cam to inspect the result.
+11. Press Play to test runtime behavior.
+12. Press Stop to recover the serialized editor scene.
+13. Save Scene when the setup is ready.</code></pre>
     </section>
 
     <section class="section">
-      <h2>Simulated Workflow: Testing Shadows</h2>
-      <p>
-        This is the recommended sequence for a shadow setup.
-      </p>
-
-      <pre><code>1. Build the scene first in Phong mode.
-2. Add a light entity from Spawn.
-3. Select the light in Hierarchy.
-4. In Details > Light:
-   - choose Directional or Spot
-   - enable Casts Shadows
-   - adjust Shadow Near / Shadow Far
-   - adjust direction or cone values
-5. Position scene meshes using Transform and hierarchy.
-6. Use Fly Camera to inspect the scene from multiple angles.
-7. Watch Performance to see the cost of the shadowed setup.
-8. Save the scene when the shadow setup is stable.</code></pre>
-
+      <h2>Practical Workflow: Testing PongGame</h2>
+      <pre><code>1. Open the Title Scene.
+2. Choose LOAD SCENE.
+3. Load PongGame.
+4. Open Entity Hierarchy, Details, Player and Performance.
+5. Inspect script-driven entities like the ball and paddles.
+6. Press Play to run the game logic.
+7. Use Pause if you want to inspect the state mid-game.
+8. Press Stop to restore the scene to its original editor state.</code></pre>
       <div class="note">
-        Phong is your working mode for general look-dev. Shadow Map is your validation mode for shadowed lights.
+        PongGame is now a very good showcase scene because it combines ECS entities, transforms, scripts, runtime state and editor-side testing.
       </div>
-    </section>
-
-    <section class="section">
-      <h2>How the Panels Work Together</h2>
-      <ul>
-        <li><strong>Hierarchy + Details</strong>: selection and editing loop</li>
-        <li><strong>Explorer + Details</strong>: drag & drop assets onto render fields</li>
-        <li><strong>Spawn + Hierarchy</strong>: create entities, then organize them</li>
-        <li><strong>Player + Scripts</strong>: test runtime logic safely</li>
-        <li><strong>Performance + Light/Render</strong>: optimize as you build the scene</li>
-        <li><strong>Gizmo + Transform</strong>: precise manipulation of selected entities</li>
-      </ul>
     </section>
 
     <div class="buttons">
       <a class="button" href="index.html">Back to Home</a>
       <a class="button" href="getting-started.html">Getting Started</a>
       <a class="button" href="how-tos.html">How To's</a>
+      <a class="button" href="showcase.html">Showcase</a>
       <a class="button" href="docs/api/index.html">Documentation</a>
     </div>
   </div>

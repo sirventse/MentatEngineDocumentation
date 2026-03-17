@@ -105,8 +105,12 @@
 
     <div class="section">
       <h3>1. Install Dependencies</h3>
-      <p>The project uses <strong>Conan</strong> for dependency management. Install it with:</p>
-      <pre><code>pip install conan</code></pre>
+      <p>The project uses <strong>Conan</strong> for dependency management.</p>
+      <p><strong>Important:</strong> This project requires <strong>Python 3.11</strong>. Conan 1.66.0 may not work correctly with newer Python versions.</p>
+      <p>To check your Python version, run:</p>
+      <pre><code>python --version</code></pre>
+      <p>To install the required Conan version, run:</p>
+      <pre><code>pip install "conan==1.66.0"</code></pre>
     </div>
 
     <div class="section">
